@@ -176,9 +176,32 @@ export const TakeSurvey = () => {
 
       {/* Header */}
       <header className="page-header survey-take-header">
-        <button className="back-catalog-btn" onClick={() => navigate('/')}>
-          <ArrowLeft size={16} />
-          <span>Catálogo</span>
+        <button
+          onClick={() => navigate('/')}
+          style={{
+            display: 'inline-flex', alignItems: 'center', gap: '7px',
+            padding: '0.5rem 1.1rem',
+            background: 'var(--primary-light)',
+            border: '1.5px solid rgba(140,91,48,0.30)',
+            borderRadius: '10px',
+            color: 'var(--primary-color)',
+            fontWeight: 700, fontSize: '0.875rem',
+            fontFamily: 'var(--font-sans)',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease',
+            boxShadow: '0 1px 4px rgba(140,91,48,0.08)',
+          }}
+          onMouseEnter={e => {
+            e.currentTarget.style.background = 'rgba(140,91,48,0.16)';
+            e.currentTarget.style.borderColor = 'var(--primary-color)';
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.background = 'var(--primary-light)';
+            e.currentTarget.style.borderColor = 'rgba(140,91,48,0.30)';
+          }}
+        >
+          <ArrowLeft size={15} />
+          Catálogo
         </button>
         <div>
           <h1>Respondiendo: {survey.titulo}</h1>
@@ -194,18 +217,18 @@ export const TakeSurvey = () => {
           
           return (
             <div key={q.id} className="take-question-card">
-              <div className="take-question-header">
-                <span className="question-number">Pregunta {idx + 1}</span>
-                <span className="question-cat">{q.category?.name || 'General'}</span>
+              <div className="take-question-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', marginBottom: '0.75rem' }}>
+                <span className="question-number" style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-muted)', letterSpacing: '0.04em', textTransform: 'uppercase' }}>Pregunta {idx + 1}</span>
+                <span className="question-cat" style={{ fontSize: '0.72rem', fontWeight: 700, padding: '3px 10px', borderRadius: '999px', background: 'var(--secondary-light)', color: 'var(--secondary-color)', border: '1px solid rgba(181,140,25,0.25)', whiteSpace: 'nowrap' }}>{q.category?.name || 'General'}</span>
               </div>
               <p className="take-question-text">{q.pregunta}</p>
 
               {/* Likert 1-5 selector */}
               {isLikert ? (
                 <div className="likert-scale-container">
-                  <div className="likert-scale-labels">
-                    <span>Crítico</span>
-                    <span>Excelente</span>
+                  <div className="likert-scale-labels" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                    <span style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--danger-color)', display: 'flex', alignItems: 'center', gap: '4px' }}>⬇ Crítico</span>
+                    <span style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--accent-color)', display: 'flex', alignItems: 'center', gap: '4px' }}>Excelente ⬆</span>
                   </div>
                   <div className="likert-options">
                     {[1, 2, 3, 4, 5].map((score) => {

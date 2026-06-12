@@ -25,18 +25,23 @@ export async function getSurveys() {
   try {
     const { data, error } = await supabase
       .from('Survey')
-      .select('*')
+      .select('*, Question(id)')
       .eq('is_active', true)
       .order('created_at', { ascending: false });
 
     if (error) throw error;
 
-    // Si hay datos reales los devuelve; si la tabla está vacía devuelve []
-    // NUNCA mezcla datos reales con mocks
-    return data ?? [];
+    const normalized = (data ?? []).map(s => ({
+      ...s,
+      questions: s.Question || s.questions || []
+    }));
+    return normalized;
   } catch (err) {
     console.warn('⚠️ Supabase no disponible, usando datos de demostración:', err.message);
-    return MOCK_SURVEYS.filter(s => s.is_active);
+    return MOCK_SURVEYS.filter(s => s.is_active).map(s => ({
+      ...s,
+      questions: MOCK_QUESTIONS[s.id] || []
+    }));
   }
 }
 

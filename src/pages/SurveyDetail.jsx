@@ -4,6 +4,7 @@ import useSurveyResults from '../hooks/useSurveyResults';
 import { deleteSurvey } from '../api/surveys';
 import { useAuth } from '../hooks/useAuth';
 import MaturityRadar from '../components/charts/MaturityRadar';
+import ScoreBarChart from '../components/charts/ScoreBarChart';
 import AnswerPieChart from '../components/charts/AnswerPieChart';
 import { Award, ClipboardCheck, PieChart, ChevronDown, ChevronUp, Archive, AlertTriangle, RefreshCw, X, Check } from 'lucide-react';
 import { translateMaturityLevel } from '../utils/dataTransformers';
@@ -261,7 +262,7 @@ export const SurveyDetail = () => {
                   <span>Nivel: <strong>{translateMaturityLevel(selectedAttempt.maturity_level)}</strong></span>
                 </div>
               </div>
-              <MaturityRadar data={radarData} />
+              <ScoreBarChart data={attempts} />
             </div>
           </div>
 

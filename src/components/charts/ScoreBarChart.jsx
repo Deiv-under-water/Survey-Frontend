@@ -15,19 +15,20 @@ export const ScoreBarChart = ({ data }) => {
     return <div className="no-data-placeholder">Sin datos de puntuaciones disponibles</div>;
   }
 
-  // Format date if needed
+  // Format data for chart
   const formattedData = data.map(item => ({
     ...item,
-    fecha: item.completed_at ? new Date(item.completed_at).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit' }) : '',
     puntuacion: item.total_score || item.averageScore || item.averagePercentage || 0,
-    nombre: item.company || item.name || ''
+    nombre: item.company?.nombre_empresa || item.company || item.name || ''
   }));
+  // Sort data by score descending for better visual ranking
+  const sortedData = formattedData.sort((a, b) => b.puntuacion - a.puntuacion);
 
   return (
     <div className="chart-wrapper">
       <ResponsiveContainer width="100%" height={320}>
         <BarChart
-          data={formattedData}
+          data={sortedData}
           margin={{ top: 20, right: 30, left: 0, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
@@ -49,6 +50,7 @@ export const ScoreBarChart = ({ data }) => {
               borderRadius: '8px',
               fontFamily: 'var(--font-sans)'
             }}
+            formatter={(value) => `${value}%`}
           />
           <Legend wrapperStyle={{ fontSize: 12, fontFamily: 'var(--font-sans)', color: 'var(--text-secondary)' }} />
           <Bar 

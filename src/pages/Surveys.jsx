@@ -406,8 +406,8 @@ export const Surveys = () => {
       <div className="surveys-grid">
         {surveys.map((survey) => {
           const questionsCount =
-            survey._count?.questions ||
             survey.questions?.length ||
+            survey.Question?.length ||
             survey.questions_count ||
             0;
 
@@ -481,7 +481,7 @@ export const Surveys = () => {
               >
                 <div className="survey-stats">
                   <span className="questions-count" style={{ fontSize: '0.85rem' }}>
-                    <strong>{questionsCount || 5}</strong> preguntas
+                    <strong>{questionsCount}</strong> preguntas
                   </span>
                 </div>
 

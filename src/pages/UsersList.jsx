@@ -394,7 +394,33 @@ function CreateUserModal({ companies, onSave, onClose, authUser }) {
           )}
 
           <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end', marginTop: '0.25rem' }}>
-            <button type="button" className="btn-secondary" onClick={onClose}>Cancelar</button>
+            <button
+              type="button"
+              onClick={onClose}
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: '6px',
+                padding: '0.55rem 1.15rem',
+                background: 'var(--primary-light)',
+                border: '1.5px solid rgba(140,91,48,0.30)',
+                borderRadius: '10px',
+                color: 'var(--primary-color)',
+                fontWeight: 700, fontSize: '0.875rem',
+                fontFamily: 'var(--font-sans)',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                boxShadow: '0 1px 4px rgba(140,91,48,0.08)',
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.background = 'rgba(140,91,48,0.16)';
+                e.currentTarget.style.borderColor = 'var(--primary-color)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background = 'var(--primary-light)';
+                e.currentTarget.style.borderColor = 'rgba(140,91,48,0.30)';
+              }}
+            >
+              Cancelar
+            </button>
             <button type="submit" className="btn-primary" disabled={saving}>
               {saving ? <RefreshCw size={14} style={{ animation: 'spin 1s linear infinite' }} /> : <Check size={14} />}
               {saving ? 'Registrando…' : 'Crear Usuario'}
@@ -617,8 +643,33 @@ export default function UsersList() {
           </p>
         </div>
         <div style={{ display: 'flex', gap: '0.75rem' }}>
-          <button className="btn-secondary" onClick={fetchUsers} style={{ gap: '6px' }}>
-            <RefreshCw size={15} />
+          <button
+            onClick={fetchUsers}
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: '7px',
+              padding: '0.55rem 1.15rem',
+              background: 'var(--primary-light)',
+              border: '1.5px solid rgba(140,91,48,0.30)',
+              borderRadius: '10px',
+              color: 'var(--primary-color)',
+              fontWeight: 700, fontSize: '0.875rem',
+              fontFamily: 'var(--font-sans)',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+              boxShadow: '0 1px 4px rgba(140,91,48,0.08)',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.background = 'rgba(140,91,48,0.16)';
+              e.currentTarget.style.borderColor = 'var(--primary-color)';
+              e.currentTarget.querySelector('svg').style.transform = 'rotate(180deg)';
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.background = 'var(--primary-light)';
+              e.currentTarget.style.borderColor = 'rgba(140,91,48,0.30)';
+              e.currentTarget.querySelector('svg').style.transform = 'rotate(0deg)';
+            }}
+          >
+            <RefreshCw size={15} style={{ transition: 'transform 0.4s ease' }} />
             Actualizar
           </button>
           <button 
